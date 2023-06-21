@@ -1,0 +1,405 @@
+public class BDMobileWallet{
+
+    int totalWallets = 9;
+
+
+    public void info() {
+        System.out.println("\nFirst Mobile Wallet was Introduced in 2011.");
+        System.out.println("Total No. of Mobile Wallet in Bangladesh is " + totalWallets+"\n");
+    }
+
+
+}
+public class Nagad extends BDMobileWallet {
+
+    int startYear;
+    String dialCode;
+    NagadFee nagadfee;
+
+    public Nagad() {
+        System.out.println("This is Nagad Wallet.");
+    }
+
+    public Nagad(int startYear, String dialCode, NagadFee nagadfee) {
+        this.startYear = startYear;
+        this.dialCode = dialCode;
+        this.nagadfee = nagadfee;
+
+
+    }
+
+    public void nagadinfos() {
+
+        System.out.println("Nagad was introduced in " + this.startYear + "\nNagad Dialcode is " +
+                this.dialCode + "\nNagad SendMoney Fee is " + nagadfee.sendMoneyFee + " Taka."
+        +"\n"+"Nagad Cashout Fee is "+nagadfee.cashOutFee+"\n");
+
+    }
+}
+
+public class  NagadFee{
+
+    double sendMoneyFee;
+    double cashOutFee;
+
+    public NagadFee(double sendMoneyFee,double cashOutFee)
+    {
+        this.sendMoneyFee = sendMoneyFee;
+        this.cashOutFee = cashOutFee;
+    }
+
+}
+
+
+public class Bkash extends BDMobileWallet {
+
+    int startYear;
+    String dialCode;
+    BkashFee bkashfee;
+
+    public Bkash()
+    {
+        System.out.println("This is Bkash Wallet.");
+    }
+
+    public Bkash(int startYear,String dialCode,BkashFee bkashfee)
+    {
+        this.startYear = startYear;
+        this.dialCode = dialCode;
+        this.bkashfee = bkashfee;
+    }
+    
+    public void bkashinfos()
+    {
+        System.out.println("Bkash was introduced in "+this.startYear+"\nBkash Dialcode is " +
+                this.dialCode+"\nBkash SendMoney Fee is "+bkashfee.sendMoneyFee+" Taka."+"\n"+
+                "Cash out Fee is "+bkashfee.cashOutFee+" Taka."+"\n");
+    }
+
+}
+
+public class BkashFee {
+
+    double sendMoneyFee;
+    double cashOutFee;
+
+    public BkashFee(double sendMoneyFee,double cashOutFee)
+    {
+        this.sendMoneyFee = sendMoneyFee;
+        this.cashOutFee = cashOutFee;
+    }
+
+
+}
+
+
+
+public interface User {
+
+    public void showdetail();
+}
+
+public abstract class UserDetails extends BDMobileWallet implements User {
+
+    String name;
+    String phoneNo;
+    String address;
+    String nidNo;
+
+    public UserDetails()
+    {
+    }
+
+
+    public UserDetails(String phoneNo, String name, String address, String nidNo) {
+        this.phoneNo = phoneNo;
+        this.name = name;
+        this.address = address;
+        this.nidNo = nidNo;
+    }
+
+
+    public abstract void usertype();
+}
+
+public class Administrator extends UserDetails{
+
+    private String name;
+    private String phoneNo;
+    AdminAddress adminaddress;
+
+
+    public Administrator(String phoneNo,String name,AdminAddress adminaddress)
+    {
+        this.phoneNo = phoneNo;
+        this.name = name;
+        this.adminaddress=adminaddress;
+    }
+    public void setPhoneNo(String phoneNo)
+    {
+        this.phoneNo=phoneNo;
+    }
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    public String getPhoneNo()
+    {
+        return phoneNo;
+    }
+    public String getName()
+    {
+        return name;
+    }
+    public void usertype()
+    {
+        System.out.println("Administrator Details.\n");
+    }
+
+    public void showdetail()
+    {
+        System.out.println("Administrator Name : "+this.name+"\nPhone no: "+this.phoneNo);
+        System.out.println("Administrator Address : House No. "+
+                adminaddress.getHouseNo()+","+adminaddress.getAreaName()+","+adminaddress.getCity()+".\n");
+    }
+}
+
+public class Customer extends UserDetails{
+
+    private String name;
+    private String  phoneNo;
+    private String nidNo;
+    private int pin;
+    CustomerAddress customeraddress;
+
+
+    public Customer(String phoneNo,String name,String nidNo,int pin,CustomerAddress customeraddress)
+    {
+        this.phoneNo = phoneNo;
+        this.name = name;
+        this.customeraddress = customeraddress;
+        this.nidNo = nidNo;
+        this.pin=pin;
+    }
+    public void setPhoneNo(String phoneNo)
+    {
+        this.phoneNo=phoneNo;
+    }
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    public void setNidNo(String nidNo)
+    {
+        this.nidNo=nidNo;
+    }
+    public void setPin(int pin)
+    {
+        this.pin = pin;
+    }
+    public String getPhoneNo()
+    {
+        return phoneNo;
+    }
+    public String getName()
+    {
+        return name;
+    }
+    public String getNidNo()
+    {
+        return nidNo;
+    }
+    public int getPin()
+    {
+        return pin;
+    }
+    public void usertype()
+    {
+        System.out.println("Customer Details.\n");
+    }
+
+    public void showdetail()
+    {
+        System.out.println("Customer Name : "+this.name+" \nPhone no: "+this.phoneNo+ "\nNid : "
+        +this.nidNo+"\nPin : "+pin);
+        System.out.println("Customer Address : House No. "+customeraddress.getHouseNo()+","+
+                customeraddress.getAreaName()+","+customeraddress.getCity());
+    }
+}
+
+public class CustomerAddress {
+
+    private String city;
+    private String areaName;
+    private String houseNo;
+
+    public CustomerAddress(String city, String areaName, String houseNo) {
+        this.city = city;
+        this.areaName = areaName;
+        this.houseNo = houseNo;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getHouseNo() {
+        return houseNo;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+}
+
+public class AdminAddress {
+
+    private String city;
+    private String areaName;
+    private String houseNo;
+
+    public AdminAddress(String city, String areaName, String houseNo) {
+        this.city = city;
+        this.areaName = areaName;
+        this.houseNo = houseNo;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getHouseNo() {
+        return houseNo;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+}
+
+
+import java.util.*;
+public class Main {
+
+    public static void main(String[] args) {
+
+
+
+        BDMobileWallet obj1 = new BDMobileWallet();
+        obj1.info();
+
+        BkashFee bfee = new BkashFee(5, 18.5);
+        NagadFee nfee = new NagadFee(0, 10.5);
+
+        Bkash b1 =new Bkash();
+        Bkash b2 = new Bkash(2011, "*247#", bfee);
+        b2.bkashinfos();
+
+        Nagad n1 = new Nagad();
+        Nagad n2 = new Nagad(2019, "*167#", nfee);
+        n2.nagadinfos();
+
+        ArrayList<String> dial = new ArrayList<String>();
+        dial.add("Dial 1 for Send Money.");
+        dial.add("Dial 2 for CashOut.");
+        dial.add("Dial 3 for CheckBalance");
+        dial.add("Dial 4 for Payment.");
+        dial.add("Dial 5 for ChangePin.\n");
+
+        for (int i = 0; i < dial.size(); i++)
+        {
+            System.out.println(dial.get(i));
+
+        }
+
+
+        Scanner s1 = new Scanner(System.in);
+        System.out.println("Enter number(1-5) : ");
+        int x=s1.nextInt();
+
+        if(x==1)
+        {
+            System.out.println("(Send Money Functions)\n");
+        }
+        else if(x == 2)
+        {
+            System.out.println("(CashOut Functions)\n");
+        }
+        else if(x==3)
+        {
+            System.out.println("(CheckBalance Functions)\n");
+        }
+        else if(x==4)
+        {
+            System.out.println("(Payment Function)\n");
+        }
+        else if(x==5)
+        {
+            System.out.println("(Change Pin Functions)\n");
+        }
+        else
+        {
+            System.out.println("Invalid.\n");
+        }
+
+        try {
+            if(x<0)
+            {
+                throw new NegativeArraySizeException();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Exception Occured and Negative Number not Acceptable.\n");
+        }
+
+        System.out.println("Press any number for Admin and User Details.");
+        int a = s1.nextInt();
+
+
+        AdminAddress adminaddress1 = new AdminAddress("Dhaka", "Mirpur 1",
+                "62/8");
+
+
+        CustomerAddress customeraddress1 = new CustomerAddress("Dhaka", "Mdpur Housing Ltd",
+                "206/6");
+
+
+        Administrator a1 = new Administrator("01863725355", "Kabir Ahsan",
+                 adminaddress1);
+        a1.usertype();
+        a1.showdetail();
+
+        Customer c1 = new Customer("01828867260", "Hirankur Dewan", "87654321", 2000,
+                customeraddress1);
+        c1.usertype();
+        c1.showdetail();
+
+    }
+
+}
